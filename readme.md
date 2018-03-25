@@ -22,21 +22,14 @@ When evaluating the solution we well be interested in particular:
 - correct usage of the selected technologies
 - justification of the selected technologies
 
-Petr Štembera
-ArcSight Engineering Manager
-Micro Focus
-Za Brumlovkou 1559/5
-140 00 Prague 4, Czech republic
-(M) +420 606.625.752
-
 ---                            
 Two parser implementations: MathParser and SctiptEvaluator
 are published via REST interface reachable
 thru  localhost:11080/zen/calc/(2+2)*3 in the browser returns 12
 when test jetty server is started
-from command line(project root): './gradlew runJetty'
+from command line(project root): ./gradlew runJetty'
 
-'./gradlew clean build' builds and tests the system.
+`./gradlew clean build` builds and tests the system.
 
 Spock framework is used for testing, see test groovy
 
