@@ -27,7 +27,9 @@ Two parser implementations: MathParser and SctiptEvaluator
 are published via REST interface reachable
 thru  localhost:11080/zen/calc/(2+2)*3 in the browser returns 12
 when test jetty server is started
-from command line(project root): ./gradlew runJetty'
+from command line(project root): 
+
+`./gradlew runJetty`
 
 `./gradlew clean build` builds and tests the system.
 

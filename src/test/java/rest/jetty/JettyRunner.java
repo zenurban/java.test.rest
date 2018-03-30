@@ -20,6 +20,7 @@ public class JettyRunner implements Runnable, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(JettyRunner.class);
 
+    public static final String REST_PACKAGE_2SCAN = "zen.rest";
     private static final int JETTY_DEFAULT_PORT = 11080;
     //private static final String CONTEXT = "cz.csas.inet.service.tpprep.dao.mapper";
     private static Server server;
@@ -88,7 +89,7 @@ public class JettyRunner implements Runnable, AutoCloseable {
         // contextHandler.setInitParameter("contextConfigLocation", "classpath*:**/WEB-INF/applicationContextRest.xml");
 
         // Tells the Jersey Servlet which REST service/class to load.
-        jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "zen.rest");
+        jerseyServlet.setInitParameter("jersey.config.server.provider.packages", REST_PACKAGE_2SCAN);
         //jerseyServlet.setInitParameter("jersey.config.server.provider.classnames", RestServiceDuplicate.class.getCanonicalName());
 
         // Add the handlers to the server.

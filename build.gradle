@@ -1,4 +1,18 @@
 
+
+buildscript {
+    ext.kotlin_version = '1.2.31'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.31"
+    }
+}
+
+
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
@@ -6,8 +20,15 @@ plugins {
     // Apply the groovy plugin to also add support for Groovy (needed for Spock)
     id 'groovy'
 
+    //id 'kotlin' //version  '1.2.10'
+    //    id "org.jetbrains.kotlin.jvm" version kotlin_version
+
     id 'war'
 }
+
+kotlin_version = '1.2.31'
+apply plugin: 'kotlin'
+
 
 compileJava {
     sourceCompatibility = 1.8
@@ -55,6 +76,14 @@ dependencies {
     // Use the awesome Spock testing and specification framework even with Java
     testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
     testImplementation 'junit:junit:4.12'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.31"
+//    testCompile group: 'io.kotlintest', name: 'kotlintest', version: '2.0.7'
+    compile group: 'io.kotlintest', name: 'kotlintest-tests', version: '3.0.0-RC2'
+    compile group: 'io.kotlintest', name: 'kotlintest-core', version: '3.0.1'
+    testCompile group: 'io.kotlintest', name: 'kotlintest-runner-junit5', version: '3.0.1'
+    compile group: 'io.kotlintest', name: 'kotlintest-intellij', version: '3.0.1'
+    
 }
 
 // In this section you declare where to find the dependencies of your project
@@ -62,6 +91,8 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
+
 }
 
 task runJetty(type: JavaExec, dependsOn: 'classes') {
