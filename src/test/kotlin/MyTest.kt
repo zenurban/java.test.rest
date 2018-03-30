@@ -1,11 +1,19 @@
 
+import com.univocity.parsers.common.record.Record
+import com.univocity.parsers.csv.CsvFormat
 import io.kotlintest.matchers.*
 import io.kotlintest.matchers.collections.containNoNulls
 import io.kotlintest.matchers.collections.containOnlyNulls
+import io.kotlintest.matchers.string.containADigit
 import io.kotlintest.properties.Gen
 import io.kotlintest.properties.forAll
 import io.kotlintest.shouldBe
+import io.kotlintest.shouldNotBe
 import io.kotlintest.specs.*
+import io.kotlintest.tables.CsvDataSource
+import io.kotlintest.tables.Headers3
+import io.kotlintest.tables.Row3
+import io.kotlintest.tables.forAll
 import java.io.File
 import java.nio.file.Files
 
@@ -20,6 +28,27 @@ class MyTests : StringSpec() {
         ("String.length should return the length of the string") {
             "sammy".length shouldBe 5
             "".length shouldBe 0
+        }
+
+        "" should io.kotlintest.matchers.string.beEmpty()
+        "hello" shouldNot io.kotlintest.matchers.string.beEmpty()
+        "a1b" should containADigit()
+        "ab" shouldNot containADigit()
+
+        "should show divergence in error message" {
+            io.kotlintest.shouldThrow<AssertionError> {
+                "la tour eiffel" should startWith("la tour tower london")
+            }.message shouldBe "String la tour eiffel should start with la tour tower london (diverged at index 8)"
+        }
+
+        "should fail if string does not start with x" {
+            val t = try {
+                "bibble" should startWith("vv")
+                true
+            } catch (e: AssertionError) {
+                false
+            }
+            t shouldBe false
         }
 
     }
@@ -314,5 +343,24 @@ class ListStack<T> : Stack<T> {
         return "ListStack(list=$list)"
     }
 
+}
+
+class CsvDataSourceTest : WordSpec() {
+    init {
+        "CsvDataSource" should {
+            "read data from csv file" {
+                val source = CsvDataSource(javaClass.getResourceAsStream("/user_data.csv"), CsvFormat())
+                val table = source.createTable<Long, String, String>(
+                        { it: Record -> Row3(it.getLong("id"), it.getString("name"), it.getString("location")) },
+                        { it: Array<String> -> Headers3(it[0], it[1], it[2]) }
+                )
+                forAll(table) { a, b, c ->
+                    a shouldBe gt(0)
+                    b shouldNotBe null
+                    c shouldNotBe null
+                }
+            }
+        }
+    }
 }
 

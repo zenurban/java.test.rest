@@ -82,6 +82,7 @@ dependencies {
     compile group: 'io.kotlintest', name: 'kotlintest-tests', version: '3.0.0-RC2'
     compile group: 'io.kotlintest', name: 'kotlintest-core', version: '3.0.1'
     testCompile group: 'io.kotlintest', name: 'kotlintest-runner-junit5', version: '3.0.1'
+    compile group: 'io.kotlintest', name: 'kotlintest-assertions', version: '3.0.1'
     compile group: 'io.kotlintest', name: 'kotlintest-intellij', version: '3.0.1'
     
 }
