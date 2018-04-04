@@ -23,9 +23,14 @@ When evaluating the solution we well be interested in particular:
 - justification of the selected technologies
 
 ---                            
-Two parser implementations: MathParser and SctiptEvaluator
-are published via REST interface reachable
-thru  localhost:11080/zen/calc/(2+2)*3 in the browser returns 12
+###Four parser implementations: 
+1. MathParser
+2. RPN
+3. ScriptEvaluator (JavaScript ScriptEngine)
+4. Parser with Tokenizer
+
+Parser is published via `REST interface` reachable
+via e.g.  `localhost:11080/zen/calc/(2+2)*3` in the browser returns 12
 when test jetty server is started
 from command line(project root): 
 
@@ -38,3 +43,69 @@ Spock framework is used for testing, see test groovy
 Dependencies can be derived from build.gradle
 The project was developed and can be dynamically tested in Intellij IDEA.
 
+###Shunting-yard algorithm 
+converts an expression given in conventional infix notation into Reverse Polish Notation:
+```
+For each token
+{
+    If (token is a number)
+    {
+        Add number to the output queue
+    }
+     
+    If (token is an operator eg +,-,*...) 
+    {
+        While (stack not empty AND 
+               stack top element is an operator)
+        {
+            If ((token = left associative AND 
+                 precedence <= stack top element) OR
+            (token = right associative AND 
+                 precedence < stack top element))
+            {
+            Pop stack onto the output queue.  
+                Exit while loop.
+            }
+        }
+        Push token onto stack
+    }
+ 
+    If (token is left bracket '(')
+    {
+        Push token on to stack
+    }
+ 
+    If (token is right bracket ')')
+    {
+        While (stack not empty AND  
+               stack top element not a left bracket)
+        {
+            Pop the stack onto output queue            
+        }
+        Pop the stack
+    }
+}
+ 
+While (stack not empty)
+{
+    Pop stack onto output queue
+}
+```
+####RPN evaluator
+```
+ For each token
+ {
+     If (token is a number)
+     {
+         Push value onto stack
+     }
+  
+     If (token is an operator)
+     {
+         Pop 2 top values from the stack
+         Evaluate operator using popped values as args
+         Push result onto stack
+     }
+ }
+
+```

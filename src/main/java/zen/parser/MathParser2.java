@@ -5,6 +5,55 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
+/**
+ Shunting-yard algorithm converts an expression given in conventional infix notation into Reverse Polish Notation:
+ 
+ For each token
+ {
+ If (token is a number)
+ {
+ Add number to the output queue
+ }
+
+ If (token is an operator eg +,-,*...)
+ {
+ While (stack not empty AND
+ stack top element is an operator)
+ {
+ If ((token = left associative AND
+ precedence <= stack top element) OR
+ (token = right associative AND
+ precedence < stack top element))
+ {
+ Pop stack onto the output queue.
+ Exit while loop.
+ }
+ }
+ Push token onto stack
+ }
+
+ If (token is left bracket '(')
+ {
+ Push token on to stack
+ }
+
+ If (token is right bracket ')')
+ {
+ While (stack not empty AND
+ stack top element not a left bracket)
+ {
+ Pop the stack onto output queue
+ }
+ Pop the stack
+ }
+ }
+
+ While (stack not empty)
+ {
+ Pop stack onto output queue
+ }
+
+ */
 public class MathParser2 {
     // Associativity constants for operators
     private static final int LEFT_ASSOC = 0;
