@@ -65,7 +65,7 @@ public class Tokenizer {
         tokenizer.add("\\)", Token.CLOSE_BRACKET);
         tokenizer.add("(?:\\d+\\.?|\\.\\d)\\d*(?:[Ee][-+]?\\d+)?", Token.NUMBER);
         tokenizer.add("[a-zA-Z]\\w*", Token.VARIABLE);
-        tokenizer.add("['\"].*['\"]", Token.STRING);
+        tokenizer.add("['\"][^'\"]*['\"]", Token.STRING);
 
         return tokenizer;
     }

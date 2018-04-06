@@ -6,7 +6,7 @@ import spock.lang.Specification
 class ParserTest extends Specification {
     def "math"() {
         when:
-        String exprstr = "sizeof('abc 2')";
+        String exprstr = "sizeof('12345') + sizeof(\"123\") + sizeof(\"\")";
         Parser parser = new Parser();
 
         ExpressionNode expr = parser.parse(exprstr);
@@ -14,7 +14,7 @@ class ParserTest extends Specification {
         println("$exprstr = $result");
 
         then:
-        result == 5
+        result == 5+3
 
         when:
         exprstr = "abs(-2)^(2*2) + abs(-4*2) + sizeof''";
