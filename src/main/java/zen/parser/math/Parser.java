@@ -220,6 +220,13 @@ public class Parser {
             return expr;
         }
 
+        // argument -> STRING
+        if (lookahead.token == Token.STRING) {
+            ExpressionNode expr = new ConstantExpressionNode(String.valueOf(lookahead.sequence.length() - 2));
+            nextToken();
+            return expr;
+        }
+
         if (lookahead.token == Token.EPSILON)
             throw new ParserException("Unexpected end of input");
         else

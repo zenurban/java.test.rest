@@ -6,11 +6,22 @@ import spock.lang.Specification
 class ParserTest extends Specification {
     def "math"() {
         when:
-        String exprstr = "2^(2*2) + 4*2";
+        String exprstr = "sizeof('abc 2')";
         Parser parser = new Parser();
 
         ExpressionNode expr = parser.parse(exprstr);
         double result = expr.getValue()
+        println("$exprstr = $result");
+
+        then:
+        result == 5
+
+        when:
+        exprstr = "abs(-2)^(2*2) + abs(-4*2) + sizeof''";
+        parser = new Parser();
+
+        expr = parser.parse(exprstr);
+        result = expr.getValue()
         println("$exprstr = $result");
 
         then:

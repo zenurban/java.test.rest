@@ -27,6 +27,8 @@ public class Token {
     public static final int NUMBER = 7;
     /** Token id for variable names */
     public static final int VARIABLE = 8;
+ /** Token id for 'string's */
+    public static final int STRING = 9;
 
     /** the token identifier */
     public final int token;

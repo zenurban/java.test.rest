@@ -7,32 +7,34 @@ package zen.parser.math;
  */
 public class FunctionExpressionNode implements ExpressionNode {
     /** function id for the sin function */
-    public static final int SIN = 1;
+    private static final int SIN = 1;
     /** function id for the cos function */
-    public static final int COS = 2;
+    private static final int COS = 2;
     /** function id for the tan function */
-    public static final int TAN = 3;
+    private static final int TAN = 3;
 
     /** function id for the asin function */
-    public static final int ASIN = 4;
+    private static final int ASIN = 4;
     /** function id for the acos function */
-    public static final int ACOS = 5;
+    private static final int ACOS = 5;
     /** function id for the atan function */
-    public static final int ATAN = 6;
+    private static final int ATAN = 6;
 
     /** function id for the sqrt function */
-    public static final int SQRT = 7;
+    private static final int SQRT = 7;
     /** function id for the exp function */
-    public static final int EXP = 8;
+    private static final int EXP = 8;
 
     /** function id for the ln function */
-    public static final int LN = 9;
+    private static final int LN = 9;
     /** function id for the log function */
-    public static final int LOG = 10;
+    private static final int LOG = 10;
     /** function id for the log2 function */
-    public static final int LOG2 = 11;
+    private static final int LOG2 = 11;
     /** function id for the abs function */
-    public static final int ABS = 12;
+    private static final int ABS = 12;
+    /** function id for sizeof operator */
+    private static final int SIZEOF = 13;
 
     /** the id of the function to apply to the argument */
     private int function;
@@ -88,6 +90,8 @@ public class FunctionExpressionNode implements ExpressionNode {
             return FunctionExpressionNode.LOG2;
         if (str.equals("abs"))
             return FunctionExpressionNode.ABS;
+        if (str.equals("sizeof"))
+            return FunctionExpressionNode.SIZEOF;
 
         throw new ParserException("Unexpected Function " + str + " found");
     }
@@ -101,7 +105,7 @@ public class FunctionExpressionNode implements ExpressionNode {
      @return a string containing all the function names
      */
     public static String getAllFunctions() {
-        return "sin|cos|tan|asin|acos|atan|sqrt|exp|ln|log|log2|abs";
+        return "sin|cos|tan|asin|acos|atan|sqrt|exp|ln|log|log2|abs|sizeof";
     }
 
     /**
@@ -143,6 +147,8 @@ public class FunctionExpressionNode implements ExpressionNode {
                 return Math.log(argument.getValue()) * 1.442695040888963407360;
             case ABS:
                 return Math.abs(argument.getValue());
+            case SIZEOF:
+                return argument.getValue();
 
         }
 

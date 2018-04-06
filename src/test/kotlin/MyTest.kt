@@ -117,6 +117,9 @@ class CollectionMatchersTest : WordSpec() {
                 val col = listOf(1, 2, 3)
 
                 col should contain(2)
+                col  shouldNot contain(4)
+                col should haveSize(3)
+                println(col)
 
                 shouldThrow<AssertionError> {
                     col should contain(4)

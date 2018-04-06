@@ -65,6 +65,7 @@ public class Tokenizer {
         tokenizer.add("\\)", Token.CLOSE_BRACKET);
         tokenizer.add("(?:\\d+\\.?|\\.\\d)\\d*(?:[Ee][-+]?\\d+)?", Token.NUMBER);
         tokenizer.add("[a-zA-Z]\\w*", Token.VARIABLE);
+        tokenizer.add("['\"].*['\"]", Token.STRING);
 
         return tokenizer;
     }
@@ -105,6 +106,7 @@ public class Tokenizer {
                     break;
                 }
             }
+
             if (!match)
                 throw new ParserException("Unexpected character in input: " + s);
         }
