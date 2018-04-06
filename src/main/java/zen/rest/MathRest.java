@@ -10,8 +10,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 @Component
 @Path("/calc")
@@ -23,12 +26,14 @@ public class MathRest {
     @Path("{exp : (.+)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response calc(
-			@PathParam("exp") String expression
+            @PathParam("exp") String expression,
+            @Context UriInfo uriInfo
 	) {
         String result;
+        MultivaluedMap<String, String> queryMap = uriInfo.getQueryParameters();
 
 		try {
-            result = (new MathService()).calculate(expression);
+            result = (new MathService()).calculate(expression, queryMap);
 		} catch (Exception e) {
 		    String msg = "Expression error: " + expression + " - " + e.getMessage();
             return Response.status(Response.Status.BAD_REQUEST).entity(msg).build();
@@ -50,14 +55,6 @@ public class MathRest {
         CalcResponse(String input, String result) {
 			this.input = input;
 			this.result = result;
-		}
-
-		String getInput() {
-			return input;
-		}
-
-        String getResult() {
-			return result;
 		}
 	}
 

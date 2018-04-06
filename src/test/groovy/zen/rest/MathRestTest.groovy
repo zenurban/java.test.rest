@@ -52,6 +52,16 @@ class MathRestTest extends Specification {
         response.statusCode == HttpStatus.OK.value()
         json.result == '8'
 
+        when: 'multiple variables'
+        cmd = "/calc/a + b  + c?a=1&b=2&c=3.4"
+        response = RestAssured.given()
+                .get(cmd)
+        json = response.body.jsonPath()
+
+        then: "expect OK status"
+        response.statusCode == HttpStatus.OK.value()
+        json.result == '6.4'
+
         when: 'expression error'
         cmd = "/calc/blah"
         response = RestAssured.given()

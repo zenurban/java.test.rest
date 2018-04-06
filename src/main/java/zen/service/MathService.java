@@ -2,12 +2,24 @@ package zen.service;
 
 import zen.parser.math.ExpressionNode;
 import zen.parser.math.Parser;
+import zen.parser.math.SetVariable;
+
+import javax.ws.rs.core.MultivaluedMap;
+import java.util.List;
 
 public class MathService {
-    public String calculate(String input) throws Exception {
+    public String calculate(String input, MultivaluedMap<String, String> variableMap) throws Exception {
         Parser parser = new Parser();
 
         ExpressionNode expr = parser.parse(input);
+        if (variableMap != null) {
+            for (String key : variableMap.keySet()) {
+                List<String> values = variableMap.get(key);
+                System.out.println("zen.queryMap.key: " + key + ", value: " + values);
+                expr.accept(new SetVariable(key, Double.parseDouble(values.get(0))));
+            }
+        }
+
         double result = expr.getValue();
 
         return fmt2(result);
