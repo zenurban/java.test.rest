@@ -1,6 +1,8 @@
 package zen.rest;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 import zen.parser.math.ExpressionNode;
 import zen.parser.math.Parser;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 @Component
 @Path("/calc")
+@Produces("application/json")
 public class MathRest {
 
 	@GET
@@ -36,7 +39,10 @@ public class MathRest {
 		}
 
 		//return fmt2(result);
-        return Response.ok( fmt2(result), MediaType.APPLICATION_JSON).build();
+		CalcResponse calcResponse = new CalcResponse(expression, fmt2(result));
+		String response = fmt2(result);
+        //return Response.ok( response, MediaType.APPLICATION_JSON).build();
+        return Response.ok(  MediaType.APPLICATION_JSON).entity(calcResponse).build();
 
 		//return ScriptEvaluator.evaluate(expression);
 	}
@@ -54,5 +60,28 @@ public class MathRest {
         long i = (long) d;
         return d == i ? String.valueOf(i) : String.valueOf(d);
     }
+
+
+    @JsonAutoDetect
+    class CalcResponse {
+        @JsonProperty
+		private String input;
+        @JsonProperty
+		private String result;
+
+		public CalcResponse(String input, String result) {
+			this.input = input;
+			this.result = result;
+		}
+
+		String getInput() {
+			return input;
+		}
+
+        String getResult() {
+			return result;
+		}
+
+	}
 
 }

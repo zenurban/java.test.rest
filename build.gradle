@@ -59,6 +59,9 @@ dependencies {
     testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
 
     def jerseyVersion = "2.26"
+    //required for json conversion
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: jerseyVersion
+
     testCompile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: jerseyVersion
     testCompile "org.glassfish.jersey.core:jersey-common:$jerseyVersion"
     //testCompile 'org.glassfish.jersey.inject:jersey-hk2:2.26'
