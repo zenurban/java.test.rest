@@ -9,20 +9,22 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
-//import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.ContextLoaderListener;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 
 import static zen.common.Constant.REST_CONTEXT_ROOT;
 
+//import org.springframework.web.context.ContextLoaderListener;
+
 public class JettyRunner implements Runnable, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(JettyRunner.class);
 
-    public static final String REST_PACKAGE_2SCAN = "zen.rest";
+    //private static final String REST_PACKAGE_2SCAN = "zen.rest";
+    private static final String REST_PACKAGE_2SCAN = "zen";
     private static final int JETTY_DEFAULT_PORT = 11080;
-    //private static final String CONTEXT = "cz.csas.inet.service.tpprep.dao.mapper";
     private static Server server;
     public int jettyPort = JETTY_DEFAULT_PORT;
     public String context = REST_CONTEXT_ROOT;
@@ -84,8 +86,8 @@ public class JettyRunner implements Runnable, AutoCloseable {
         server = new Server(jettyPort);
 
         // add Spring DI
-        //servletContextHandler.addEventListener(new ContextLoaderListener());
-        //servletContextHandler.setInitParameter("contextConfigLocation", "classpath:applicationContext.xml");
+        servletContextHandler.addEventListener(new ContextLoaderListener());
+        servletContextHandler.setInitParameter("contextConfigLocation", "classpath:applicationContext.xml");
         // contextHandler.setInitParameter("contextConfigLocation", "classpath*:**/WEB-INF/applicationContextRest.xml");
 
         // Tells the Jersey Servlet which REST service/class to load.

@@ -3,6 +3,7 @@ package zen.rest;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import zen.service.MathService;
 
@@ -20,8 +21,16 @@ import javax.ws.rs.core.UriInfo;
 @Path("/calc")
 @Produces("application/json")
 public class MathRest {
+    private final MathService mathService;
 
-	@GET
+    @Autowired
+    //@Inject
+    public MathRest(MathService mathService) {
+        assert mathService != null;
+        this.mathService = mathService;
+    }
+
+    @GET
 	//enable slashes in path params:
     @Path("{exp : (.+)?}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -29,11 +38,13 @@ public class MathRest {
             @PathParam("exp") String expression,
             @Context UriInfo uriInfo
 	) {
+
         String result;
         MultivaluedMap<String, String> queryMap = uriInfo.getQueryParameters();
 
 		try {
-            result = (new MathService()).calculate(expression, queryMap);
+            //result = (new MathService()).calculate(expression, queryMap);
+            result = mathService.calculate(expression, queryMap);
 		} catch (Exception e) {
 		    String msg = "Expression error: " + expression + " - " + e.getMessage();
             return Response.status(Response.Status.BAD_REQUEST).entity(msg).build();

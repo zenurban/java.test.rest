@@ -1,5 +1,6 @@
 package zen.service;
 
+import org.springframework.stereotype.Component;
 import zen.parser.math.ExpressionNode;
 import zen.parser.math.Parser;
 import zen.parser.math.SetVariable;
@@ -7,6 +8,7 @@ import zen.parser.math.SetVariable;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.List;
 
+@Component
 public class MathService {
     public String calculate(String input, MultivaluedMap<String, String> variableMap) throws Exception {
         Parser parser = new Parser();

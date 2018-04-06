@@ -2,9 +2,11 @@ package zen.rest
 
 import com.jayway.restassured.RestAssured
 import org.springframework.http.HttpStatus
+import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 import zen.rest.common.Common
 
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 class MathRestTest extends Specification {
     def setupSpec() {
         Common.startRestServer();
