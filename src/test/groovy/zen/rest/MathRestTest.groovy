@@ -56,11 +56,13 @@ class MathRestTest extends Specification {
         cmd = "/calc/blah"
         response = RestAssured.given()
                 .get(cmd)
-        result = response.body.asString()
+        //result = response.body.asString()
+        //println("result.zen" + result)
 
-        then: "expect OK status"
-        response.statusCode == HttpStatus.OK.value()
-        result =~ 'Expression error'
+        then: "expect BAD_REQUEST status"
+        response.statusCode == HttpStatus.BAD_REQUEST.value()
+        println("---->error.zen:" + response.body().asString())
+        response.body().asString() =~ 'Expression error'
 
     }
 

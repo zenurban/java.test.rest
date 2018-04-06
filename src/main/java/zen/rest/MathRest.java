@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Component
 @Path("/calc")
@@ -19,7 +20,7 @@ public class MathRest {
 	//enable slashes in path params:
     @Path("{exp : (.+)?}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String calc(
+	public Response calc(
 			@PathParam("exp") String expression
 	) {
 		Parser parser = new Parser();
@@ -29,10 +30,13 @@ public class MathRest {
 			ExpressionNode expr = parser.parse(expression);
 			result = expr.getValue();
 		} catch (Exception e) {
-			return "Expression error: " + expression + " - " + e.getMessage();
+		    String msg = "Expression error: " + expression + " - " + e.getMessage();
+            return Response.status(Response.Status.BAD_REQUEST).entity(msg).build();
+			//return msg;
 		}
 
-		return fmt2(result);
+		//return fmt2(result);
+        return Response.ok( fmt2(result), MediaType.APPLICATION_JSON).build();
 
 		//return ScriptEvaluator.evaluate(expression);
 	}
