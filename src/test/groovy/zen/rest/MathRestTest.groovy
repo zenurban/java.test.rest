@@ -22,15 +22,15 @@ class MathRestTest extends Specification {
 
     def "test calculation"() {
         when:
-        def cmd = "/calc/20+20"
+        def cmd = "/calc/20+20/10"
         def response = RestAssured.given()
                 .get(cmd)
         def result = response.body.asString()
-        Common.log "20 +20 = $result"
+        Common.log "20 +20/10 = $result"
 
         then: "expect OK status"
         response.statusCode == HttpStatus.OK.value()
-        result == '40'
+        result == '22'
 
         when:
         cmd = "/calc/(2+2)*3"
@@ -51,6 +51,16 @@ class MathRestTest extends Specification {
         then: "expect OK status"
         response.statusCode == HttpStatus.OK.value()
         result == '8'
+
+        when:
+        cmd = "/calc/blah"
+        response = RestAssured.given()
+                .get(cmd)
+        result = response.body.asString()
+
+        then: "expect OK status"
+        response.statusCode == HttpStatus.OK.value()
+        result =~ 'Expression error'
 
     }
 

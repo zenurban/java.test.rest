@@ -102,7 +102,7 @@ public class JettyRunner implements Runnable, AutoCloseable {
 
         String sep = "\n_______________________________________________________________\n" ;
         log("{}Starting Jetty server at port: {}\n" +
-                        "-->To get data use: localhost:{}/{}/calc/(2+2)*3{}",
+                        "-->To get data use: localhost:{}/{}/calc/abs(-2)^(2*2) + abs(-4*2) + sizeof'This sentence has 26 chars' {}",
                 sep, jettyPort, jettyPort, context,  sep);
         try {
             server.start();

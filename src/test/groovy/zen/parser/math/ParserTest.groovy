@@ -28,6 +28,17 @@ class ParserTest extends Specification {
         result == 24
 
         when:
+        exprstr = "abs(-2)^(2*2) + abs(-4*2) + sizeof'This sentence has 26 chars'";
+        parser = new Parser();
+
+        expr = parser.parse(exprstr);
+        result = expr.getValue()
+        println("$exprstr = $result");
+
+        then:
+        result == 24  + 26
+
+        when:
         exprstr = "1 - (-2^2) - 1";
         parser = new Parser();
 
@@ -49,6 +60,17 @@ class ParserTest extends Specification {
         then:
         final ParserException e = thrown()
         e.message == "Unexpected symbol blah found"
+
+        when:  'divided by 0'
+        exprstr = "11/0";
+        parser = new Parser();
+
+        expr = parser.parse(exprstr);
+        result = expr.getValue()
+        println("$exprstr = $result");
+
+        then:
+        result == Double.POSITIVE_INFINITY
 
 
         when:

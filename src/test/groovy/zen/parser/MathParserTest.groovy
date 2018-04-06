@@ -23,7 +23,7 @@ class MathParserTest extends Specification {
         then:
         thrown IllegalArgumentException
 
-        when: "devided by 0"
+        when: "divided by 0"
         eval = MathParser.evaluate("(10 + 2) * 6 /0")
         then:
         final  UnsupportedOperationException e = thrown()

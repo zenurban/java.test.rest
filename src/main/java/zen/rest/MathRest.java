@@ -16,15 +16,21 @@ import javax.ws.rs.core.MediaType;
 public class MathRest {
 
 	@GET
-	@Path("{exp}")
+	//enable slashes in path params:
+    @Path("{exp : (.+)?}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String calc(
 			@PathParam("exp") String expression
 	) {
 		Parser parser = new Parser();
 
-		ExpressionNode expr = parser.parse(expression);
-		double result = expr.getValue() ;
+		double result = 0;
+		try {
+			ExpressionNode expr = parser.parse(expression);
+			result = expr.getValue();
+		} catch (Exception e) {
+			return "Expression error: " + expression + " - " + e.getMessage();
+		}
 
 		return fmt2(result);
 
