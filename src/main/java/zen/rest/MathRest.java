@@ -59,9 +59,9 @@ public class MathRest {
     @JsonAutoDetect
     class CalcResponse {
         @JsonProperty
-		private String input;
+        public String input;
         @JsonProperty
-		private String result;
+        public String result;
 
         CalcResponse(String input, String result) {
 			this.input = input;

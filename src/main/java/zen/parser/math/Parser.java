@@ -8,6 +8,7 @@ import java.util.LinkedList;
  * representation of the expression.
  *
  * Parsing is implemented in the form of a recursive descent parser.
+ * “recursive descent” comes from the fact that the parser performs a depth first search by recursively calling the same methods. You can spot the recursion in the argument() method which is indirectly called by the expression() method but also calls the expression() method itself.
  *
  */
 public class Parser {

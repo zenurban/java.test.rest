@@ -67,6 +67,12 @@ dependencies {
     //testCompile 'org.glassfish.jersey.inject:jersey-hk2:2.26'
     testCompile group: 'org.glassfish.jersey.ext', name: 'jersey-spring4', version: jerseyVersion
 
+    def resteasyVersion = '3.5.0.Final'
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: resteasyVersion
+    compile group: 'org.jboss.resteasy', name: 'resteasy-spring', version: resteasyVersion
+    compile group: 'org.jboss.resteasy', name: 'resteasy-jackson-provider', version: resteasyVersion
+
+
     //    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '3.0.7'
     testCompile group: 'com.jayway.restassured', name: 'rest-assured', version: '2.9.0'
 

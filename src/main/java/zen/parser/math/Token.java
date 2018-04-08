@@ -9,7 +9,10 @@ package zen.parser.math;
  The token id must be one of a number of pre-defined values
  */
 public class Token {
-    /** Token id for the epsilon terminal */
+    /**
+     Token id for the epsilon terminal
+     The EPSILON is to indicate an end of the chain.
+     */
     public static final int EPSILON = 0;
     /** Token id for plus or minus */
     public static final int PLUSMINUS = 1;
