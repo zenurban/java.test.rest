@@ -55,13 +55,11 @@ dependencies {
     compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1'
     def jettyVersion = "9.4.9.v20180320"
     testCompile group: 'org.eclipse.jetty', name: 'jetty-server', version: jettyVersion
-//    compile group: 'org.eclipse.jetty', name: 'jetty-servlets', version: jettyVersion
     testCompile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
 
     def jerseyVersion = "2.26"
     //required for json conversion
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: jerseyVersion
-
     testCompile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: jerseyVersion
     testCompile "org.glassfish.jersey.core:jersey-common:$jerseyVersion"
     //testCompile 'org.glassfish.jersey.inject:jersey-hk2:2.26'
@@ -86,13 +84,14 @@ dependencies {
     testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
     testImplementation 'junit:junit:4.12'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:1.2.31"
-//    testCompile group: 'io.kotlintest', name: 'kotlintest', version: '2.0.7'
-    compile group: 'io.kotlintest', name: 'kotlintest-tests', version: '3.0.0-RC2'
-    compile group: 'io.kotlintest', name: 'kotlintest-core', version: '3.0.1'
-    testCompile group: 'io.kotlintest', name: 'kotlintest-runner-junit5', version: '3.0.1'
-    compile group: 'io.kotlintest', name: 'kotlintest-assertions', version: '3.0.1'
-    compile group: 'io.kotlintest', name: 'kotlintest-intellij', version: '3.0.1'
+    def kotlinVersion = '1.2.31'
+    def kotlinTestVersion = '3.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    testCompile group: 'io.kotlintest', name: 'kotlintest-tests', version: '3.0.0-RC2'
+    testCompile group: 'io.kotlintest', name: 'kotlintest-core', version: kotlinTestVersion
+    testCompile group: 'io.kotlintest', name: 'kotlintest-runner-junit5', version: kotlinTestVersion
+    testCompile group: 'io.kotlintest', name: 'kotlintest-assertions', version: kotlinTestVersion
+    testCompile group: 'io.kotlintest', name: 'kotlintest-intellij', version: kotlinTestVersion
     
 }
 
